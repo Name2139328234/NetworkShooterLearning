@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 
 
@@ -15,6 +16,6 @@ public class DestroySelfOnHit : MonoBehaviour
 
     private void DestroySelf()
     {
-        Destroy(gameObject);
+        NetworkServer.Destroy(gameObject);
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class SpaceshipInput:NetworkBehaviour
 {
+    public SpaceShipMovement ControlledShip { get => _controlledShip; }
+
     [SerializeField]
     private KeyCode _shootKey;
 
@@ -15,16 +17,14 @@ public class SpaceshipInput:NetworkBehaviour
 
     void Update()
     {
-
         if (!isOwned || _controlledShip == null)
             return;
-
         _controlledShip.SpeedControl = Input.GetAxis("Vertical");
         _controlledShip.TorqueControl = -Input.GetAxis("Horizontal");
 
         if (Input.GetKey(_shootKey))
             foreach (Turret turret in _controlledTurrets)
-                turret.TryShoot();
+                turret.CmdShoot();
     }
 
 
@@ -34,5 +34,4 @@ public class SpaceshipInput:NetworkBehaviour
         _controlledShip = ship;
         _controlledTurrets = ship.GetComponentsInChildren<Turret>();
     }
-    //reference to movement that this controls through user input
 }

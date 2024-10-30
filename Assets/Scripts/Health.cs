@@ -1,35 +1,36 @@
+using Mirror;
 using UnityEngine;
 using UnityEngine.Events;
 
 
 
-public class Health : MonoBehaviour
+public class Health : NetworkBehaviour
 {
-    public event UnityAction OnDie;
-    public event UnityAction<float> OnChangeValue;
+    public event UnityAction Died;
+    public event UnityAction<float> Changed;
 
     [SerializeField]
     private float _maxValue;
 
-    private float _value;
-    private bool _isDead;//exists to prevent multiple calls of OnDie event in multi-thread enviroment. Should probably learn to handle threads instead
+    [SyncVar(hook = nameof(OnChanged))] private float _value;
+    [SyncVar(hook = nameof(OnDie))]private bool _isDead;
 
 
 
-    void Start()
+    public override void OnStartServer()
     {
+        base.OnStartServer();
+
         _value = _maxValue;
     }
 
 
 
-    public void Damage(float damage)
+    [Server]
+    public void SvDamage(float damage)
     {
         if (_isDead)
             return;
-
-        if (OnChangeValue != null)
-            OnChangeValue(Mathf.Max(-_value, -damage));
 
         _value -= damage;
 
@@ -37,19 +38,27 @@ public class Health : MonoBehaviour
         {
             _isDead = true;
             _value = 0;
-
-            if (OnDie != null)
-                OnDie();
         }
     }
-    public void Heal(float heal)
+    [Server]
+    public void SvHeal(float heal)
     {
-        if (OnChangeValue != null)
-            OnChangeValue(Mathf.Min(_maxValue - _value, heal));
 
         _value += heal;
 
         if (_value > _maxValue)
             _value = _maxValue;
+    }
+
+
+
+    private void OnChanged(float previous, float current)
+    {
+        Changed?.Invoke(current);
+    }
+    private void OnDie (bool previous, bool current)
+    {
+        if (previous == false && current == true)
+            Died?.Invoke();
     }
 }

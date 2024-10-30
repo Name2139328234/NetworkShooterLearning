@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 
-public class Turret : MonoBehaviour
+public class Turret : NetworkBehaviour
 {
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private GameObject _projectile;
@@ -20,16 +20,25 @@ public class Turret : MonoBehaviour
 
 
 
-    public bool TryShoot()
+    [Command]
+    public void CmdShoot()
+    {
+        SvShoot();
+    }
+    [Server]
+    private void SvShoot()
     {
         if (!_isReloaded)
-            return false;
-
-        NetworkServer.Spawn(Instantiate(_projectile, _shootPoint.position, _shootPoint.rotation));
+            return;
+        Instantiate(_projectile, _shootPoint.position, _shootPoint.rotation);
         _isReloaded = false;
         _reloader.IsPaused = false;
-
-        return true;
+        RpcShoot();
+    }
+    [ClientRpc]
+    private void RpcShoot()
+    {
+        Instantiate(_projectile, _shootPoint.position, _shootPoint.rotation);
     }
 
 

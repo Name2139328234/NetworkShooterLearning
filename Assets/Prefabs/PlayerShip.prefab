@@ -650,6 +650,7 @@ GameObject:
   - component: {fileID: 2324443083415937142}
   - component: {fileID: 6094752559679664759}
   - component: {fileID: 5056003105983320932}
+  - component: {fileID: 3510929470205259896}
   m_Layer: 0
   m_Name: PlayerShip
   m_TagString: Untagged
@@ -796,6 +797,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23d040fd44bc1354983fedf7bf6392bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
   _rigidbody2D: {fileID: 80365286379658423}
   _speed: 2
   _torque: 100
@@ -812,6 +816,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxValue: 100
+--- !u!114 &3510929470205259896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6053318592880387126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e55588b5cbcfa4693420015e00dfb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: {fileID: 5056003105983320932}
 --- !u!1 &6103978238910555390
 GameObject:
   m_ObjectHideFlags: 0

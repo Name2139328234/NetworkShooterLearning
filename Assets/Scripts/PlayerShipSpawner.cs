@@ -7,25 +7,39 @@ public class PlayerShipSpawner : NetworkBehaviour
 {
     [SerializeField] private GameObject _ship;
     [SerializeField] private SpaceshipInput _playerInputControl;
-    // Start is called before the first frame update
-    void Start()
+
+
+
+    public override void OnStartClient()
     {
+        base.OnStartClient();
+
         if (!isOwned)
             return;
 
-        SpawnShip();
+        CmdSpawnShip();
     }
 
 
 
 
     [Command]
-    private void SpawnShip()
+    private void CmdSpawnShip()
     {
+        SvSpawnShip();
+    }
+    [Server]
+    private void SvSpawnShip()
+    {
+
         GameObject ship = Instantiate(_ship, transform.position, transform.rotation);
+        NetworkServer.Spawn(ship, netIdentity.connectionToClient);
 
+        RpcSetShip(ship.GetComponent<NetworkIdentity>());
+    }
+    [ClientRpc]
+    private void RpcSetShip(NetworkIdentity ship)
+    {
         _playerInputControl.SetShip(ship.GetComponent<SpaceShipMovement>());
-
-        NetworkServer.Spawn(ship);
     }
 }

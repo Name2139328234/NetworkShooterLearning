@@ -8,14 +8,19 @@ public class RegisterHit : MonoBehaviour
     public event UnityAction<GameObject> OnHit;
     public event UnityAction OnAfterHit;
 
+    [SerializeField] private MoveForward _moveForward;
 
 
-    void OnTriggerEnter2D(Collider2D other)
+
+    void Update()
     {
-        if (OnHit != null)
-            OnHit(other.gameObject);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, _moveForward.Speed * Time.deltaTime);
 
-        if (OnAfterHit != null)
-            OnAfterHit();
+        if (hit == true)
+        {
+            OnHit?.Invoke(hit.collider.gameObject);
+
+            OnAfterHit?.Invoke();
+        }
     }
 }

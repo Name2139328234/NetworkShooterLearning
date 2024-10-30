@@ -11,8 +11,10 @@ public class DestroySelfOnDie : MonoBehaviour
 
     void Start()
     {
-        _health.OnDie += DestroySelf;
+        _health.Died += DestroySelf;
     }
+
+
 
     private void DestroySelf()
     {

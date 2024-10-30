@@ -16,6 +16,6 @@ public class DestroySelfOnHit : MonoBehaviour
 
     private void DestroySelf()
     {
-        NetworkServer.Destroy(gameObject);
+        Destroy(gameObject);
     }
 }

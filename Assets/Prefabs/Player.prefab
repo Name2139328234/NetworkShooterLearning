@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8112275478104353105}
   - component: {fileID: -484852142652310366}
-  - component: {fileID: -3114987287303666943}
   - component: {fileID: 8986297505437308454}
+  - component: {fileID: 6318577113723961330}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -51,23 +51,6 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
---- !u!114 &-3114987287303666943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3590514959629020103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29278f28e9ba8cd4ea9edb243a4b3cba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  _ship: {fileID: 6053318592880387126, guid: 66b8bbce29b8ef74d9e0a7f1da565f61, type: 3}
-  _playerInputControl: {fileID: 8986297505437308454}
 --- !u!114 &8986297505437308454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,3 +67,20 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _shootKey: 32
+--- !u!114 &6318577113723961330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3590514959629020103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c70a8f34b03baf4abb6c904e0c4305b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _activeShip: {fileID: 0}
+  _activeShipInput: {fileID: 0}

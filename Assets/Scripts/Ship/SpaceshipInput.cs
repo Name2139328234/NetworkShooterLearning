@@ -17,21 +17,18 @@ public class SpaceshipInput:NetworkBehaviour
 
     void Update()
     {
-        if (!isOwned || _controlledShip == null)
+        if (!isOwned)
             return;
-        _controlledShip.SpeedControl = Input.GetAxis("Vertical");
-        _controlledShip.TorqueControl = -Input.GetAxis("Horizontal");
+        if (Player.Local == null)
+            return;
+        if (Player.Local.ActiveShipMovement == null)
+            return;
+        Player.Local.ActiveShipMovement.SpeedControl = Input.GetAxis("Vertical");
+        Player.Local.ActiveShipMovement.TorqueControl = -Input.GetAxis("Horizontal");
 
+        /*
         if (Input.GetKey(_shootKey))
             foreach (Turret turret in _controlledTurrets)
-                turret.CmdShoot();
-    }
-
-
-
-    public void SetShip(SpaceShipMovement ship)
-    {
-        _controlledShip = ship;
-        _controlledTurrets = ship.GetComponentsInChildren<Turret>();
+                turret.CmdShoot();*/
     }
 }
